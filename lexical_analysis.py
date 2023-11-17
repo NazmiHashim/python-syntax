@@ -1,5 +1,10 @@
 import re
 
+alphabet = re.compile(r'[a-zA-Z]')
+digit = re.compile(r'\d')
+operator = re.compile(r'[+\-*/^|=]')
+punctuator = re.compile(r'[(){}[\];:\'"]')
+
 # Token class represents a lexical token with a type and value.
 class Token:
     def __init__(self, token_type, value):
@@ -46,33 +51,33 @@ class Lexer:
         if self.current_char is None:
             return None
 
-        if self.current_char.isalpha():
+        if alphabet.match(self.current_char):
             # If the character is alphabetic, extract an identifier.
             token_value = self.identifier()
             letters.append(token_value)
             return Token('IDENTIFIER', token_value)
         
-        elif self.current_char.isdigit():
+        elif digit.match(self.current_char):
             # If the character is a digit, extract an integer.
             token_value = str(self.integer())
             numbers.append(token_value)
             return Token('INTEGER', token_value)
         
-        elif self.current_char in {'+', '-', '*', '/', '^', '|', '='}:
+        elif operator.match(self.current_char):
             # If the character is an operator, categorize it as an operator.
             token_value = self.current_char
             operators.append(token_value)
             self.advance()
             return Token('OPERATOR', token_value)
         
-        elif self.current_char in {'(', ')', '{', '}', '[', ']', ';', ':', "'", '"'}:
+        elif punctuator.match(self.current_char):
             # If the character is a punctuator, categorize it as a punctuator.
             token_value = self.current_char
             self.advance()
             punctuators.append(token_value)
 
             # Check if the next character is also a punctuator, and if so, combine them.
-            if self.current_char in {'(', ')', '{', '}', '[', ']', ';', ':', "'", '"'}:
+            if punctuator.match(self.current_char):
                 token_value += self.current_char
                 self.advance()
 
