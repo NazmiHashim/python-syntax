@@ -26,6 +26,13 @@ class Lexer:
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
+    # def keywords(self):
+    #     result = ''
+    #     while self.current_char is not None and self.current_char 
+    #         result += self.current_char
+    #         self.advance()
+    #     return result
+
     def integer(self):
         # Extract an integer from the code.
         result = ''
@@ -42,15 +49,20 @@ class Lexer:
             self.advance()
         return result
 
-    def categorize_token(self, letters, numbers, operators, punctuators, others):
+    def categorize_token(self, keywords, letters, numbers, operators, punctuators, others):
         if self.current_char is None:
             return None
-
+        
         if self.current_char.isalpha():
             # If the character is alphabetic, extract an identifier.
             token_value = self.identifier()
-            letters.append(token_value)
-            return Token('IDENTIFIER', token_value)
+
+            if token_value in {'return', 'if', 'for', 'while'}:
+                keywords.append(token_value)
+                return Token('KEYWORD', token_value)
+            else:
+                letters.append(token_value)
+                return Token('IDENTIFIER', token_value)
         elif self.current_char.isdigit():
             # If the character is a digit, extract an integer.
             token_value = str(self.integer())
@@ -85,6 +97,7 @@ class Lexer:
             self.advance()
             
 while True:
+    keywords = []
     letters = []
     numbers = []
     operators = []
@@ -102,12 +115,13 @@ while True:
 
     while lexer.current_char is not None:
         # Tokenize the input and print token information.
-        token = lexer.categorize_token(letters, numbers, operators, punctuators, others)
+        token = lexer.categorize_token(keywords, letters, numbers, operators, punctuators, others)
         if token:
             print(f'Token Type: {token.type}, Token Value: {token.value}')
 
     # Print the categorized lists
     print("\nCategorized Tokens:")
+    print("Keywords:", keywords)
     print("Alphabets:", letters)
     print("Numbers:", numbers)
     print("Operators:", operators)
