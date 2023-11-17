@@ -1,5 +1,10 @@
 import re
 
+alphabet = re.compile(r'[a-zA-Z]')
+digit = re.compile(r'\d')
+operator = re.compile(r'[+\-*/^|=]')
+punctuator = re.compile(r'[(){}[\];:\'"]')
+
 # Token class represents a lexical token with a type and value.
 class Token:
     def __init__(self, token_type, value):
@@ -26,13 +31,6 @@ class Lexer:
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
-    # def keywords(self):
-    #     result = ''
-    #     while self.current_char is not None and self.current_char 
-    #         result += self.current_char
-    #         self.advance()
-    #     return result
-
     def integer(self):
         # Extract an integer from the code.
         result = ''
@@ -52,8 +50,8 @@ class Lexer:
     def categorize_token(self, keywords, letters, numbers, operators, punctuators, others):
         if self.current_char is None:
             return None
-        
-        if self.current_char.isalpha():
+
+        if alphabet.match(self.current_char):
             # If the character is alphabetic, extract an identifier.
             token_value = self.identifier()
 
@@ -63,29 +61,28 @@ class Lexer:
             else:
                 letters.append(token_value)
                 return Token('IDENTIFIER', token_value)
-        elif self.current_char.isdigit():
+        
+        elif digit.match(self.current_char):
             # If the character is a digit, extract an integer.
             token_value = str(self.integer())
             numbers.append(token_value)
             return Token('INTEGER', token_value)
-        elif self.current_char in {'+', '-', '*', '/', '^', '|', '='}:
+        
+        elif operator.match(self.current_char):
             # If the character is an operator, categorize it as an operator.
             token_value = self.current_char
             operators.append(token_value)
             self.advance()
             return Token('OPERATOR', token_value)
-        elif self.current_char in {'(', ')', '{', '}', '[', ']', ';', ':', "'", '"'}:
+        
+        elif punctuator.match(self.current_char):
             # If the character is a punctuator, categorize it as a punctuator.
             token_value = self.current_char
             self.advance()
             punctuators.append(token_value)
 
-            # Check if the next character is also a punctuator, and if so, combine them.
-            if self.current_char in {'(', ')', '{', '}', '[', ']', ';', ':', "'", '"'}:
-                token_value += self.current_char
-                self.advance()
-
             return Token('PUNCTUATOR', token_value)
+        
         elif re.match(r'[!@#$%&_<>\?]', self.current_char):
             # If the character matches a specific pattern, categorize it as "OTHER".
             token_value = self.current_char
@@ -95,35 +92,24 @@ class Lexer:
         else:
             # If the character doesn't match any category, simply advance to the next character.
             self.advance()
-            
-while True:
-    keywords = []
-    letters = []
-    numbers = []
-    operators = []
-    punctuators = []
-    others = []
 
-    # User input for the expression
-    print('\nThis is lexical analysis phase.')
-    expression = input("Enter an expression (type 'exit' to end): ")
 
-    if expression.lower() == 'exit':
-        break  # Exit the loop if the user types 'exit'
+    def get_tokens(self):
+        keywords = []
+        letters = []
+        numbers = []
+        operators = []
+        punctuators = []
+        others = []
 
-    lexer = Lexer(expression)
+        while self.current_char is not None:
+                token = self.categorize_token(keywords, letters, numbers, operators, punctuators, others)
+                if token:
+                    yield token
 
-    while lexer.current_char is not None:
-        # Tokenize the input and print token information.
-        token = lexer.categorize_token(keywords, letters, numbers, operators, punctuators, others)
-        if token:
-            print(f'Token Type: {token.type}, Token Value: {token.value}')
+        return letters, numbers, operators, punctuators, others
 
-    # Print the categorized lists
-    print("\nCategorized Tokens:")
-    print("Keywords:", keywords)
-    print("Alphabets:", letters)
-    print("Numbers:", numbers)
-    print("Operators:", operators)
-    print("Punctuators:", punctuators)
-    print("Other Characters:", others)
+
+    
+
+ 
