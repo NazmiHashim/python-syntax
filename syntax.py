@@ -29,8 +29,25 @@ class Parser:
         return None
 
     def parse(self):
-        result = self.parse_expression()
+        result = self.parse_statement()
         return result
+
+    def parse_statement(self):
+        current_token = self.get_current_token()
+
+        if current_token is not None and current_token.type == 'IDENTIFIER':
+            # Variable assignment statement
+            variable_name = current_token.value
+            self.consume()  # Consume the variable name
+            if self.get_current_token().type == 'OPERATOR' and self.get_current_token().value == '=':
+                self.consume()  # Consume the '=' operator
+                expression_node = self.parse_expression()
+                return self.ASTNode('=', 'OPERATOR', [self.ASTNode(variable_name, 'IDENTIFIER'), expression_node])
+            else:
+                raise RuntimeError("Invalid statement: Assignment operator '=' expected after variable name.")
+        else:
+            # Other statements (e.g., expressions, return statements)
+            return self.parse_expression()
 
     def parse_expression(self):
         term_node = self.parse_high_precedence_term()
