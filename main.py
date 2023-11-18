@@ -2,9 +2,9 @@ from lexical_analysis import Lexer
 from syntax import Parser
 
 def main():
+    print('\nWelcome to lexical and syntax analysis program.')
     while True:
         # User input for the expression
-        print('\nWelcome to lexical and syntax analysis program.')
         expression = input("Enter an expression (type 'exit' to end): ")
         if expression.lower() == 'exit':
             break  # Exit the loop if the user types 'exit'
