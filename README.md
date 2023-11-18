@@ -1,4 +1,11 @@
 # Group assignment for CPT316
+
+### Group Member
+1) MOHAMAD NAZMI BIN HASHIM 158616 
+2) MIOR MUHAMMAD IRFAN BIN MIOR LATFEE 158450 
+3) OOI JING MIN 158768 
+4) MUNIRAH BINTI SHAMSUDIN 157518 
+5) SHONEERA SIMIN 159160
    
 ## Lexical and Syntax Analysis program
 
@@ -38,12 +45,7 @@ Abstract Syntax Tree:
 ## Import Function
 're' (Regular Expression Operation) :used for defining patterns to match characters in input during lexical analysis
 
-## Group Member
-1) MOHAMAD NAZMI BIN HASHIM 158616 
-2) MIOR MUHAMMAD IRFAN BIN MIOR LATFEE 158450 
-3) OOI JING MIN 158768 
-4) MUNIRAH BINTI SHAMSUDIN 157518 
-5) SHONEERA SIMIN 159160
+
 
 
 
