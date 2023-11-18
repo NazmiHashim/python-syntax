@@ -55,7 +55,7 @@ class Lexer:
             # If the character is alphabetic, extract an identifier.
             token_value = self.identifier()
 
-            if token_value in {'return'}:
+            if token_value in {'return', 'print'}:
                 keywords.append(token_value)
                 return Token('KEYWORD', token_value)
             else:
@@ -107,7 +107,7 @@ class Lexer:
                 if token:
                     yield token
 
-        return keywords, letters, numbers, operators, punctuators, others
+        return letters, numbers, operators, punctuators, others
 
 
     
