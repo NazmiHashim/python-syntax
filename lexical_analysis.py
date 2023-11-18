@@ -107,7 +107,7 @@ class Lexer:
                 if token:
                     yield token
 
-        return letters, numbers, operators, punctuators, others
+        return keywords, letters, numbers, operators, punctuators, others
 
 
     
