@@ -1,5 +1,6 @@
-# Lexical and Syntax Analysis program
-Group assignment for CPT316
+# Group assignment for CPT316
+   
+## Lexical and Syntax Analysis program
 
 This program is a pyhton-based lexical and syntax analyzer is designed to identify and analyze the structure of the code. It initially divides the input into tokens via lexical analysis and then applies syntax analysis to determine whether the code is correctly structured and complies with the required grammatical rules. An Abstract Syntax Tree (AST) is generated as the outcome of the successful syntax analysis.
 
@@ -34,12 +35,16 @@ Abstract Syntax Tree:
 
 #### This program enables you to enter multiple times of expression unless type exit to end the program
 
-## Group Member
+## Import Function
+'re' (Regular Expression Operation) :used for defining patterns to match characters in input during lexical analysis
 
+## Group Member
 1) MOHAMAD NAZMI BIN HASHIM 158616 
 2) MIOR MUHAMMAD IRFAN BIN MIOR LATFEE 158450 
 3) OOI JING MIN 158768 
 4) MUNIRAH BINTI SHAMSUDIN 157518 
-5) SHONEERA SIMIN 159160 
+5) SHONEERA SIMIN 159160
+
+
 
 
