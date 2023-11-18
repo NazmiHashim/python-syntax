@@ -1,5 +1,3 @@
-from lexical_analysis import *
-
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
