@@ -42,7 +42,7 @@ class Parser:
                 expression_node = self.parse_expression()
                 return self.ASTNode('=', 'OPERATOR', [self.ASTNode(variable_name, 'IDENTIFIER'), expression_node])
             else:
-                raise RuntimeError("Invalid statement: Assignment operator '=' expected after variable name.")
+                print("Error: Invalid statement -> Assignment operator '=' expected after variable name.")
         else:
             # Other statements (e.g., expressions, return statements)
             return self.parse_expression()
@@ -63,7 +63,7 @@ class Parser:
                 if self.get_current_token().type == 'PUNCTUATOR' and self.get_current_token().value == closing_punctuator[current_token.value]:
                     self.consume()  # Consume the closing punctuator
                 else:
-                    raise RuntimeError(f"Mismatched {current_token.value} in expression")
+                    print(f"Error: Mismatched {current_token.value} in expression")
                 left_node = self.ASTNode(current_token.value, 'OPERATOR', [left_node, expression_node])
             else:
                 term_node = self.parse_high_precedence_term()
@@ -115,7 +115,7 @@ class Parser:
                     self.consume()  # Consume the closing curly brace
                     return expression_node
                 else:
-                    raise RuntimeError("Mismatched curly braces in expression")
+                    print("Error: Mismatched curly braces in expression")
             elif current_token.type == 'PUNCTUATOR' and current_token.value == '[':
                 # Handle square brackets
                 self.consume()
@@ -124,7 +124,7 @@ class Parser:
                     self.consume() # Consume the closing square bracket
                     return expression_node
                 else:
-                    raise RuntimeError("Mismatched square brackets in expression")
+                    print("Error: Mismatched square brackets in expression")
             elif current_token.type == 'PUNCTUATOR' and current_token.value == '(':
                 # Handle parentheses
                 self.consume()
@@ -133,11 +133,11 @@ class Parser:
                     self.consume()  # Consume the closing parenthesis
                     return expression_node
                 else:
-                    raise RuntimeError("Mismatched parentheses in expression")
+                    print("Error: Mismatched parentheses in expression")
             else:
-                raise RuntimeError(f"Invalid factor: Unexpected token type '{current_token.type}'")
+                print(f"Error: Invalid factor: Unexpected token type '{current_token.type}'")
         else:
-            raise RuntimeError("Invalid factor: Unexpected end of input")
+            print("Error: Invalid factor: Unexpected end of input")
 
     @staticmethod
     def print_ast(node, depth):
