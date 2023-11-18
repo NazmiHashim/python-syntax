@@ -6,10 +6,9 @@ This program is a pyhton-based lexical and syntax analyzer is designed to identi
 ## How it Work
 Put it all file in the same folder and run file main.py in your python console:
 Input:
+''''
 x=x+y
-A screen shot of a computer
-
-Description automatically generated
+''''
 
 
 ## Group Member
