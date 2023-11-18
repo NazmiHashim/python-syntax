@@ -4,7 +4,7 @@ from syntax import Parser
 def main():
     while True:
         # User input for the expression
-        print('\nThis is the main script.')
+        print('\nWelcome to lexical and syntax analysis program.')
         expression = input("Enter an expression (type 'exit' to end): ")
         if expression.lower() == 'exit':
             break  # Exit the loop if the user types 'exit'
