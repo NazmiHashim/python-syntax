@@ -5,11 +5,34 @@ This program is a pyhton-based lexical and syntax analyzer is designed to identi
 
 ## How it Work
 Put it all file in the same folder and run file main.py in your python console:
-Input:
-''''
-x=x+y
-''''
 
+### Input:
+```
+x=x+y
+```
+
+### Output for Tokenizing
+```
+Token Information:
+Token Type: IDENTIFIER, Token Value: x
+Token Type: OPERATOR, Token Value: =
+Token Type: IDENTIFIER, Token Value: x
+Token Type: OPERATOR, Token Value: +
+Token Type: IDENTIFIER, Token Value: y
+```
+
+### Resulting Abstract Syntax Tree (AST):
+
+```
+Abstract Syntax Tree:
+=:OPERATOR
+        x:IDENTIFIER
+        +:OPERATOR
+                x:IDENTIFIER
+                y:IDENTIFIER
+```
+
+#### This program enables you to enter multiple times of expression unless type exit to end the program
 
 ## Group Member
 
