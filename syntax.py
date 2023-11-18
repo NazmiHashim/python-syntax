@@ -36,7 +36,7 @@ class Parser:
         if current_token is not None and current_token.type == 'IDENTIFIER':
             # Variable assignment statement
             variable_name = current_token.value
-            self.consume()  # Consume the variable name
+            self.consume()
             if self.get_current_token().type == 'OPERATOR' and self.get_current_token().value == '=':
                 self.consume()  # Consume the '=' operator
                 expression_node = self.parse_expression()
@@ -54,17 +54,16 @@ class Parser:
     def parse_expression_prime(self, left_node):
         current_token = self.get_current_token()
 
-        while current_token is not None and current_token.type == 'OPERATOR' and current_token.value in {'+', '-', '=', '(', '[', ')', ']'}:
+        while current_token is not None and current_token.type == 'OPERATOR' and current_token.value in {'+', '-', '=', '(', '[', '{', ')', ']', '}' }:
             self.consume()
-            if current_token.value in {'(', '['}:
-                # Handle parentheses and square brackets
+            if current_token.value in {'(', '[', '{'}:
+                # Handle parentheses, square brackets, and curly braces
                 expression_node = self.parse_expression()
-                if current_token.value == '(' and self.get_current_token().type == 'OPERATOR' and self.get_current_token().value == ')':
-                    self.consume()  # Consume the closing parenthesis
-                elif current_token.value == '[' and self.get_current_token().type == 'OPERATOR' and self.get_current_token().value == ']':
-                    self.consume()  # Consume the closing square bracket
+                closing_punctuator = {'(': ')', '[': ']', '{': '}'}
+                if self.get_current_token().type == 'PUNCTUATOR' and self.get_current_token().value == closing_punctuator[current_token.value]:
+                    self.consume()  # Consume the closing punctuator
                 else:
-                    raise RuntimeError("Mismatched parentheses or square brackets in expression")
+                    raise RuntimeError(f"Mismatched {current_token.value} in expression")
                 left_node = self.ASTNode(current_token.value, 'OPERATOR', [left_node, expression_node])
             else:
                 term_node = self.parse_high_precedence_term()
@@ -108,6 +107,24 @@ class Parser:
                 self.consume()
                 expression_node = self.parse_expression()
                 return self.ASTNode('return', 'KEYWORD', [expression_node])
+            elif current_token.type == 'PUNCTUATOR' and current_token.value == '{':
+                # Handle curly braces
+                self.consume()
+                expression_node = self.parse_expression()
+                if self.get_current_token().type == 'PUNCTUATOR' and self.get_current_token().value == '}':
+                    self.consume()  # Consume the closing curly brace
+                    return expression_node
+                else:
+                    raise RuntimeError("Mismatched curly braces in expression")
+            elif current_token.type == 'PUNCTUATOR' and current_token.value == '[':
+                # Handle square brackets
+                self.consume()
+                expression_node = self.parse_expression()
+                if self.get_current_token().type == 'PUNCTUATOR' and self.get_current_token().value == ']':
+                    self.consume() # Consume the closing square bracket
+                    return expression_node
+                else:
+                    raise RuntimeError("Mismatched square brackets in expression")
             elif current_token.type == 'PUNCTUATOR' and current_token.value == '(':
                 # Handle parentheses
                 self.consume()
