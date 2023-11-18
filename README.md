@@ -1,7 +1,7 @@
 # Lexical and Syntax Analysis program
 Group assignment for CPT316
 
-This program is a pyhton-based lexical and syntax analyzer. 
+This program is a pyhton-based lexical and syntax analyzer. This program initially divide the input into tokens via lexical analysis and then applies syntax analysis to determine whether the code is correctly structured and complies with the required grammatical rules.
 
 ## How it Work
 Put it all file in the same folder and run file main.py in your python console, you can open and edit the input.
