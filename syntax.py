@@ -43,6 +43,19 @@ class Parser:
                 return self.ASTNode('=', 'OPERATOR', [self.ASTNode(variable_name, 'IDENTIFIER'), expression_node])
             else:
                 print("Error: Invalid statement -> Assignment operator '=' expected after variable name.")
+        elif current_token is not None and current_token.type == 'KEYWORD' and current_token.value.lower() == 'print':
+            # Print statement
+            self.consume()  # Consume the 'print' keyword
+            if self.get_current_token().type == 'PUNCTUATOR' and self.get_current_token().value == '(':
+                self.consume()  # Consume the opening parenthesis
+                expression_node = self.parse_expression()
+                if self.get_current_token().type == 'PUNCTUATOR' and self.get_current_token().value == ')':
+                    self.consume()  # Consume the closing parenthesis
+                    return self.ASTNode('print', 'KEYWORD', [expression_node])
+                else:
+                    print("Error: Missing closing parenthesis ')' in print statement.")
+            else:
+                print("Error: Missing opening parenthesis '(' in print statement.")
         else:
             # Other statements (e.g., expressions, return statements)
             return self.parse_expression()
