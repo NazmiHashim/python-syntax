@@ -43,9 +43,40 @@ Abstract Syntax Tree:
 #### This program enables you to enter multiple times of expression unless type exit to end the program
 
 ## Import Function
-'re' (Regular Expression Operation) :used for defining patterns to match characters in input during lexical analysis
+'re' (Regular Expression Operation) :used for defining patterns to match characters in input expression during lexical analysis
 
+## Features
+#### Lexical Analysis
+Lexical analysis component tokenizes the input expression and categorizing them into following types:
+```
+Keyword : 'return' and 'print'
+Identifier : Alphabet
+Integer : Numeric Values
+Operator : Mathematical operators (+, -, *, /, ^, =)
+Punctuator : Symbol such as  [ (,){,}[,\,],;,:,\,'," ]
+Other :[ !@#$%&_<>\? ]
+```
 
+#### Syntax Analysis
+Syntax Analysis component parser tokens to construct the Abstract Syntax Tree (AST).
+It supporting for different input such as :
+```
+Variable assignment : Y=10
+Arithmetic expressions : 1+2*3
+Print statements : print(x+1)
+Return statements : return x+y
+Special keyword : 'exit' for end the program
+```
 
+### Main
+The main file assembles the entire program process and provides a user interface for interacting with the program.
+Features includes:
+```
+User-Friendly Interface
+Lexical Analysis : Import 'Lexer' class for tokenizing the input expression and print information for each token
+Syntax Analysis : Import 'Parser' class to construct and print the Abstract Syntax Tree 
+Input Analysis : User can input expression for analysis
+Exit command : Type 'exit to end the program
+```
 
 
