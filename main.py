@@ -5,7 +5,7 @@ def main():
     print('\nWelcome to lexical and syntax analysis program.')
     while True:
         # User input for the expression
-        expression = input("Enter an expression (type 'exit' to end): ")
+        expression = input("\nEnter an expression (type 'exit' to end): ")
         if expression.lower() == 'exit':
             break  # Exit the loop if the user types 'exit'
 
