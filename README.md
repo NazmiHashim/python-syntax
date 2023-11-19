@@ -9,10 +9,10 @@
    
 ## Lexical and Syntax Analysis program
 
-This program is a pyhton-based lexical and syntax analyzer is designed to identify and analyze the structure of the code. It initially divides the input into tokens via lexical analysis and then applies syntax analysis to determine whether the code is correctly structured and complies with the required grammatical rules. An Abstract Syntax Tree (AST) is generated as the outcome of the successful syntax analysis.
+This program is a pyhton-based lexical and syntax analyzer designed to identify and analyze the structure of the code. It initially divides the input into tokens via lexical analysis and then applies syntax analysis to determine whether the code is correctly structured and complies with the required grammatical rules. An Abstract Syntax Tree (AST) is generated as the outcome of the successful syntax analysis.
 
 ## How it Work
-Put it all file in the same folder and run file main.py in your python console:
+Put all file in the same folder and run file main.py in your python console:
 
 ### Input:
 ```
