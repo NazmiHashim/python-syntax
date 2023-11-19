@@ -85,11 +85,12 @@ class Parser:
             current_token = self.get_current_token()
 
         return left_node
-
+    
     def parse_high_precedence_term(self):
         factor_node = self.parse_factor()
         return self.parse_high_precedence_term_prime(factor_node)
 
+    # Handle precedence for multiplication and division
     def parse_high_precedence_term_prime(self, left_node):
         current_token = self.get_current_token()
 
@@ -102,6 +103,7 @@ class Parser:
 
         return left_node
 
+    # Handle precedence for parentheses, square brackets, and curly braces
     def parse_factor(self):
         current_token = self.get_current_token()
 
@@ -152,6 +154,7 @@ class Parser:
         else:
             print("Error: Invalid factor: Unexpected end of input")
 
+    # Print the resulting AST
     @staticmethod
     def print_ast(node, depth):
         if node is not None:
